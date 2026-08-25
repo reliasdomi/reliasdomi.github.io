@@ -3,949 +3,1270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rubén Elías — Ingeniero en Irrigación & Desarrollador</title>
-    <meta name="description" content="Portafolio de Rubén Elías. Ingeniero en Irrigación por la Universidad Autónoma Chapingo. Hidrología aplicada, geomática 3D y software AgTech.">
-    <meta property="og:title" content="Rubén Elías — Ingeniero en Irrigación & Desarrollador">
-    <meta property="og:description" content="Hidrología aplicada, geomática 3D y software para el campo mexicano.">
+    <title>Rubén Elías — Ingeniero en Irrigación & Software AgTech</title>
+    <meta name="description" content="Ingeniero en Irrigación por la Universidad Autónoma Chapingo. Software de campo offline-first, física hídrica (FAO-56) y geomática 3D.">
+    <meta property="og:title" content="Rubén Elías — Ingeniero en Irrigación & Software AgTech">
+    <meta property="og:description" content="Hidrología aplicada, modelos FAO-56 y software offline-first para el campo mexicano.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://reliasdomi.github.io">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%2334d399' stroke-width='3'/%3E%3Cpath d='M30 65 Q40 30 50 50 Q60 70 70 35' fill='none' stroke='%2334d399' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%2310b981' stroke-width='4'/%3E%3Cpath d='M30 65 Q40 30 50 50 Q60 70 70 35' fill='none' stroke='%2310b981' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg-deep: #060b09;
-            --bg-surface: #0c1410;
-            --bg-elevated: #121e19;
-            --bg-card: #0f1a15;
-            --border: #1a2e25;
-            --border-subtle: #142420;
-            --text-primary: #e8ede9;
-            --text-secondary: #8fa89a;
-            --text-muted: #5a7568;
-            --accent: #34d399;
-            --accent-dim: #059669;
-            --accent-glow: rgba(52, 211, 153, 0.08);
-            --copper: #c2956a;
-            --copper-dim: #8a6a4a;
-            --font-display: 'Instrument Serif', Georgia, serif;
-            --font-body: 'DM Sans', system-ui, sans-serif;
+            --bg: #070908;
+            --bg-card: #0d120f;
+            --bg-card-hover: #121a15;
+            --bg-card-subtle: #0a0f0c;
+            --border: #1a2620;
+            --border-highlight: #283e33;
+            --text-main: #f0f5f2;
+            --text-dim: #9ab3a5;
+            --text-muted: #526b5d;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.12);
+            --accent-bright: #34d399;
+            --copper: #e09f5a;
+            --copper-dim: rgba(224, 159, 90, 0.15);
+            --mono: 'JetBrains Mono', monospace;
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--sans);
+        }
 
         body {
-            font-family: var(--font-body);
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            line-height: 1.7;
+            line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            background: var(--bg);
+            position: relative;
         }
 
-        /* ========== TOPOGRAPHIC BACKGROUND ========== */
-        .topo-bg {
+        /* Technical Grid Overlay */
+        .grid-bg {
             position: fixed;
             inset: 0;
-            z-index: 0;
+            background-image: 
+                linear-gradient(to right, rgba(26, 38, 32, 0.35) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(26, 38, 32, 0.35) 1px, transparent 1px);
+            background-size: 48px 48px;
             pointer-events: none;
-            opacity: 0.035;
+            z-index: 0;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 10%, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 10%, black 40%, transparent 100%);
         }
 
-        .topo-bg svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* ========== LAYOUT ========== */
         .container {
-            max-width: 1080px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 2rem;
-        }
-
-        section {
             position: relative;
             z-index: 1;
         }
 
-        /* ========== NAV ========== */
+        /* ================= NAVIGATION ================= */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            padding: 1.25rem 2rem;
+            backdrop-filter: blur(16px);
+            background: rgba(7, 9, 8, 0.85);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(20px);
-            background: rgba(6, 11, 9, 0.7);
-            border-bottom: 1px solid var(--border-subtle);
-            transition: transform 0.4s ease;
         }
 
-        nav.hidden { transform: translateY(-100%); }
-
-        .nav-logo {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            color: var(--text-primary);
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .nav-logo-mark {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .nav-title {
+            font-weight: 700;
+            font-size: 0.95rem;
             letter-spacing: -0.01em;
         }
 
-        .nav-logo span { color: var(--accent); }
+        .nav-sub {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            border-left: 1px solid var(--border);
+            padding-left: 0.75rem;
+            display: none;
+        }
+
+        @media (min-width: 640px) {
+            .nav-sub { display: inline-block; }
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .time-badge {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            background: var(--bg-card-subtle);
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
 
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 1.25rem;
             list-style: none;
         }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: var(--text-dim);
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 500;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
 
-        .nav-links a:hover { color: var(--accent); }
-
-        /* Hamburger */
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
+        .nav-links a:hover {
+            color: var(--accent-bright);
         }
 
-        .nav-toggle span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background: var(--text-primary);
-            margin: 5px 0;
-            transition: all 0.3s;
-            border-radius: 1px;
-        }
-
-        .nav-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .nav-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .nav-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        /* ========== HERO ========== */
+        /* ================= HERO ================= */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 8rem 0 6rem;
+            padding: 9rem 0 4.5rem;
             position: relative;
         }
 
-        .hero-content { width: 100%; }
-
-        .hero-label {
+        .hero-meta-tag {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.12em;
+            gap: 0.5rem;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--accent-bright);
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            margin-bottom: 1.75rem;
             text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.8s 0.3s forwards;
+            letter-spacing: 0.05em;
         }
 
-        .hero-label::before {
-            content: '';
-            display: block;
-            width: 2rem;
-            height: 1px;
-            background: var(--accent);
-        }
-
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: clamp(3.2rem, 8vw, 6.5rem);
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-title .line {
-            display: block;
-            overflow: hidden;
-        }
-
-        .hero-title .line-inner {
-            display: block;
-            opacity: 0;
-            transform: translateY(100%);
-            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .hero-title .line:nth-child(1) .line-inner { animation-delay: 0.5s; }
-        .hero-title .line:nth-child(2) .line-inner { animation-delay: 0.65s; }
-
-        .hero-title em {
-            font-style: italic;
-            color: var(--accent);
-        }
-
-        .hero-subtitle {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            max-width: 520px;
-            margin-bottom: 3rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.8s 1s forwards;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.8s 1.2s forwards;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.9rem 2rem;
-            background: var(--accent);
-            color: var(--bg-deep);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 0.04em;
-            border-radius: 2px;
-            transition: all 0.3s;
-        }
-
-        .btn-primary:hover {
-            background: #5eead4;
-            box-shadow: 0 0 30px rgba(52, 211, 153, 0.25);
-        }
-
-        .btn-ghost {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.9rem 2rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.85rem;
-            letter-spacing: 0.04em;
-            border: 1px solid var(--border);
-            border-radius: 2px;
-            transition: all 0.3s;
-        }
-
-        .btn-ghost:hover {
-            color: var(--text-primary);
-            border-color: var(--text-muted);
-        }
-
-        .hero-scroll {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: fadeUp 0.8s 1.6s forwards;
-        }
-
-        .scroll-line {
-            width: 1px;
-            height: 3rem;
-            background: linear-gradient(to bottom, var(--accent), transparent);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        /* ========== SECTION HEADERS ========== */
-        .section-header {
-            margin-bottom: 4rem;
-        }
-
-        .section-number {
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            color: var(--copper);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .section-number::after {
-            content: '';
-            display: block;
-            width: 3rem;
-            height: 1px;
-            background: var(--copper-dim);
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 4vw, 3rem);
-            line-height: 1.15;
+        .hero-h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.8rem, 6.5vw, 5rem);
+            line-height: 1.02;
+            font-weight: 400;
             letter-spacing: -0.02em;
-        }
-
-        /* ========== ABOUT ========== */
-        .about {
-            padding: 8rem 0;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
-        }
-
-        .about-text p {
-            color: var(--text-secondary);
             margin-bottom: 1.5rem;
-            font-size: 1.05rem;
+            max-width: 900px;
         }
 
-        .about-text strong {
-            color: var(--text-primary);
-            font-weight: 500;
+        .hero-h1 em {
+            font-style: italic;
+            color: var(--accent-bright);
         }
 
-        .about-aside {
-            border-left: 1px solid var(--border);
-            padding-left: 2.5rem;
-        }
-
-        .aside-block {
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            max-width: 720px;
+            line-height: 1.7;
             margin-bottom: 2.5rem;
         }
 
-        .aside-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 0.75rem;
+        .hero-pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
         }
 
-        .aside-value {
-            color: var(--text-secondary);
+        .pillar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            transition: all 0.25s ease;
+        }
+
+        .pillar-card:hover {
+            border-color: var(--border-highlight);
+            transform: translateY(-2px);
+            background: var(--bg-card-hover);
+        }
+
+        .pillar-num {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--accent);
+            margin-bottom: 0.35rem;
+        }
+
+        .pillar-title {
             font-size: 0.95rem;
-            line-height: 1.8;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
         }
 
-        .tech-list {
+        .pillar-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .hero-ctas {
             display: flex;
             flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
             gap: 0.5rem;
+            padding: 0.75rem 1.4rem;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
         }
 
-        .tech-tag {
-            padding: 0.3rem 0.75rem;
-            background: var(--accent-glow);
-            border: 1px solid var(--border);
-            color: var(--accent);
-            font-size: 0.78rem;
-            font-weight: 500;
-            border-radius: 1px;
-            letter-spacing: 0.02em;
+        .btn-primary {
+            background: var(--accent);
+            color: #03150d;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
         }
 
-        /* ========== PROJECTS ========== */
-        .projects {
-            padding: 8rem 0;
+        .btn-primary:hover {
+            background: var(--accent-bright);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+            transform: translateY(-1px);
         }
 
-        .project-card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            padding: 3rem 0;
+        .btn-secondary {
+            background: var(--bg-card);
+            border-color: var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-muted);
+            background: var(--bg-card-hover);
+            color: var(--accent-bright);
+        }
+
+        /* ================= SIMULATOR WIDGET ================= */
+        .section-wrap {
+            padding: 4.5rem 0;
             border-top: 1px solid var(--border);
-            align-items: start;
         }
 
-        .project-card:last-child {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .project-meta {
+        .section-header-compact {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
             gap: 1rem;
         }
 
-        .project-number {
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            color: var(--copper);
+        .section-tag {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.25rem;
         }
 
-        .project-name {
-            font-family: var(--font-display);
-            font-size: clamp(1.6rem, 3vw, 2.2rem);
-            line-height: 1.15;
+        .section-heading {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 400;
             letter-spacing: -0.02em;
         }
 
-        .project-type {
-            font-size: 0.8rem;
+        .sim-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 880px) {
+            .sim-grid {
+                grid-template-columns: 1.1fr 0.9fr;
+            }
+        }
+
+        .sim-grid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .sim-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+        }
+
+        .sim-control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .sim-label-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            color: var(--text-dim);
+        }
+
+        .sim-value-pill {
+            font-family: var(--mono);
+            font-weight: 600;
+            color: var(--accent-bright);
+        }
+
+        .sim-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #141f19;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .sim-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--accent);
+            border: 2px solid #070908;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+            transition: transform 0.1s;
+        }
+
+        .sim-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .crop-selector {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .crop-btn {
+            background: var(--bg-card-subtle);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: var(--mono);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .crop-btn.active {
+            background: var(--accent-glow);
+            border-color: var(--accent);
+            color: var(--accent-bright);
+        }
+
+        .sim-output-panel {
+            background: var(--bg-card-subtle);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .fao-formula {
+            font-family: var(--mono);
+            font-size: 0.72rem;
             color: var(--text-muted);
-            font-weight: 500;
-            letter-spacing: 0.06em;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px dashed var(--border);
+            padding: 0.75rem;
+            border-radius: 6px;
+            line-height: 1.4;
+        }
+
+        .results-hero {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .result-caption {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
             text-transform: uppercase;
         }
 
-        .project-body p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
+        .result-number {
+            font-family: var(--mono);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.03em;
+            line-height: 1;
         }
 
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-tag {
-            padding: 0.25rem 0.6rem;
-            font-size: 0.72rem;
+        .result-unit {
+            font-size: 1.1rem;
+            color: var(--accent);
             font-weight: 500;
-            letter-spacing: 0.03em;
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-            border-radius: 1px;
+            margin-left: 0.25rem;
         }
 
-        .project-links {
+        .sub-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+        }
+
+        .sub-metric-item {
             display: flex;
+            flex-direction: column;
+        }
+
+        .sub-metric-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-family: var(--mono);
+        }
+
+        .sub-metric-val {
+            font-family: var(--mono);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-dim);
+        }
+
+        /* ================= PROJECTS ================= */
+        .projects-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .project-card-engineered {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .project-card-engineered:hover {
+            border-color: var(--border-highlight);
+            background: var(--bg-card-hover);
+        }
+
+        .project-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
             gap: 1rem;
             flex-wrap: wrap;
         }
 
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
+        .project-category {
+            font-family: var(--mono);
+            font-size: 0.72rem;
             color: var(--accent);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .project-link:hover { color: #5eead4; }
-
-        .project-link svg {
-            width: 14px;
-            height: 14px;
+        .project-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.01em;
+            margin-top: 0.15rem;
         }
 
-        .project-private {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            font-style: italic;
+        .project-desc {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
+            max-width: 820px;
         }
 
-        .project-private svg {
-            width: 13px;
-            height: 13px;
-        }
-
-        /* ========== CONTACT ========== */
-        .contact {
-            padding: 10rem 0 4rem;
-            text-align: center;
-        }
-
-        .contact-heading {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            line-height: 1.1;
-            letter-spacing: -0.03em;
+        .arch-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
             margin-bottom: 1.5rem;
         }
 
-        .contact-heading em {
-            font-style: italic;
-            color: var(--accent);
+        .arch-pill {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            background: var(--bg-card-subtle);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
         }
 
-        .contact-text {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            max-width: 480px;
-            margin: 0 auto 3rem;
-        }
-
-        .contact-links {
+        .project-links-row {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
+            gap: 1rem;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 1.25rem;
+            flex-wrap: wrap;
         }
 
-        .contact-link {
+        .link-interactive {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
+            gap: 0.4rem;
+            color: var(--accent-bright);
+            font-size: 0.85rem;
+            font-weight: 600;
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
+            transition: gap 0.2s ease, color 0.2s ease;
         }
 
-        .contact-link:hover { color: var(--accent); }
-
-        .contact-link svg {
-            width: 18px;
-            height: 18px;
+        .link-interactive:hover {
+            color: #fff;
+            gap: 0.65rem;
         }
 
-        /* ========== FOOTER ========== */
-        footer {
-            border-top: 1px solid var(--border-subtle);
-            padding: 2rem;
-            text-align: center;
+        .link-muted {
+            font-size: 0.82rem;
             color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* ================= ARCHITECTURE & PRINCIPLES ================= */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .principle-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.75rem;
+        }
+
+        .principle-icon {
+            font-family: var(--mono);
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .principle-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .principle-text {
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* ================= TECH MATRIX ================= */
+        .stack-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .stack-group {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .stack-group-title {
+            font-family: var(--mono);
             font-size: 0.78rem;
-            letter-spacing: 0.04em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
         }
 
-        /* ========== REVEAL ANIMATIONS ========== */
-        .reveal {
+        .stack-items {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .stack-item {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stack-item::before {
+            content: '›';
+            color: var(--text-muted);
+            font-family: var(--mono);
+        }
+
+        /* ================= FOOTER / CONTACT ================= */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 5rem 0 3rem;
+            background: #040605;
+        }
+
+        .contact-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .contact-title {
+            font-family: var(--serif);
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 400;
+        }
+
+        .contact-title em {
+            color: var(--accent-bright);
+            font-style: italic;
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent);
+            color: #03150d;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            font-family: var(--mono);
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(10px);
+            transition: all 0.25s ease;
+            pointer-events: none;
+            z-index: 999;
         }
 
-        .reveal.visible {
+        .toast.show {
             opacity: 1;
             transform: translateY(0);
-        }
-
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-
-        /* ========== KEYFRAMES ========== */
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        /* ========== GRAIN OVERLAY ========== */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            background-size: 256px 256px;
-        }
-
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
-            .container { padding: 0 1.25rem; }
-
-            .nav-toggle { display: block; }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                gap: 0;
-                background: rgba(6, 11, 9, 0.95);
-                backdrop-filter: blur(20px);
-                border-bottom: 1px solid var(--border-subtle);
-                padding: 1rem 2rem 1.5rem;
-            }
-
-            .nav-links.open {
-                display: flex;
-            }
-
-            .nav-links a {
-                padding: 0.75rem 0;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .about-aside {
-                border-left: none;
-                border-top: 1px solid var(--border);
-                padding-left: 0;
-                padding-top: 2.5rem;
-            }
-
-            .project-card {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                padding: 2.5rem 0;
-            }
-
-            .hero { padding: 6rem 0 4rem; }
-
-            .hero-actions {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .contact-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-
-            .hero-scroll { display: none; }
-        }
-
-        /* ========== SELECTION ========== */
-        ::selection {
-            background: rgba(52, 211, 153, 0.2);
-            color: var(--text-primary);
         }
     </style>
 </head>
 <body>
 
-    <!-- Topographic contour background -->
-    <div class="topo-bg" aria-hidden="true">
-        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-            <g fill="none" stroke="#34d399" stroke-width="0.8">
-                <path d="M-50 200 Q200 120 400 180 Q600 240 800 160 Q1000 80 1200 200 Q1400 320 1500 180"/>
-                <path d="M-50 280 Q180 200 380 260 Q580 320 780 220 Q980 120 1180 260 Q1380 400 1500 260"/>
-                <path d="M-50 360 Q220 300 420 340 Q620 380 820 300 Q1020 220 1220 340 Q1420 460 1500 340"/>
-                <path d="M-50 440 Q200 380 400 420 Q600 460 800 380 Q1000 300 1200 420 Q1400 540 1500 420"/>
-                <path d="M-50 520 Q240 470 440 500 Q640 530 840 460 Q1040 390 1240 500 Q1440 610 1500 500"/>
-                <path d="M-50 600 Q200 550 400 580 Q600 610 800 540 Q1000 470 1200 580 Q1400 690 1500 580"/>
-                <path d="M-50 680 Q220 640 420 660 Q620 680 820 620 Q1020 560 1220 660 Q1420 760 1500 660"/>
-                <path d="M-50 760 Q200 720 400 740 Q600 760 800 700 Q1000 640 1200 740 Q1400 840 1500 740"/>
-            </g>
-        </svg>
-    </div>
+    <div class="grid-bg"></div>
 
     <!-- Navigation -->
-    <nav id="nav">
-        <a href="#" class="nav-logo">r<span>.</span>elías</a>
-        <button class="nav-toggle" id="navToggle" aria-label="Menú">
-            <span></span><span></span><span></span>
-        </button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#sobre-mi">Sobre mí</a></li>
-            <li><a href="#proyectos">Proyectos</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="nav-brand">
+                <div class="nav-logo-mark"></div>
+                <span class="nav-title">Rubén Elías</span>
+                <span class="nav-sub">UACh // Irrigación & Software</span>
+            </a>
+            <div class="nav-right">
+                <div class="time-badge">
+                    <span class="status-dot"></span>
+                    <span id="liveTime">--:-- MX</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#proyectos">Proyectos</a></li>
+                    <li><a href="#simulador">Simulador FAO-56</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container hero-content">
-            <div class="hero-label">Universidad Autónoma Chapingo</div>
-            <h1 class="hero-title">
-                <span class="line"><span class="line-inner">Rubén Elías</span></span>
-                <span class="line"><span class="line-inner">Ingeniero en <em>Irrigación</em></span></span>
+    <main class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-meta-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                Universidad Autónoma Chapingo · Depto. de Irrigación
+            </div>
+            
+            <h1 class="hero-h1">
+                Software de campo, balances hídricos y <em>geomática 3D</em>.
             </h1>
-            <p class="hero-subtitle">
-                Desarrollo herramientas en la intersección de la hidrología aplicada, geomática 3D y software de campo — desde modelos de riego hasta plataformas offline-first para ranchos.
+
+            <p class="hero-desc">
+                Combino la ingeniería en irrigación con desarrollo de software: desde implementar la física de evapotranspiración (FAO-56) y nubes de puntos LiDAR/GPS, hasta construir arquitecturas <strong>offline-first</strong> para operaciones agrícolas reales.
             </p>
-            <div class="hero-actions">
-                <a href="#proyectos" class="btn-primary">
-                    Ver proyectos
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+
+            <div class="hero-pillars">
+                <div class="pillar-card">
+                    <div class="pillar-num">01 // FÍSICA APLICADA</div>
+                    <div class="pillar-title">FAO-56 Penman-Monteith</div>
+                    <div class="pillar-desc">Cálculo riguroso de balance hídrico, radiación neta y demanda evaporativa sin cajas negras.</div>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-num">02 // ARQUITECTURA DE CAMPO</div>
+                    <div class="pillar-title">Offline-First & SQLite</div>
+                    <div class="pillar-desc">Sistemas en Flutter y PowerSync con 0ms de latencia de escritura en zonas rurales sin cobertura.</div>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-num">03 // GEOMÁTICA 3D</div>
+                    <div class="pillar-title">Topografía & Nubes de Puntos</div>
+                    <div class="pillar-desc">Procesamiento de estación total y GPS diferencial en visualizadores web navegables (Potree/Leaflet).</div>
+                </div>
+            </div>
+
+            <div class="hero-ctas">
+                <a href="#simulador" class="btn btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    Probar Simulador FAO-56
                 </a>
-                <a href="https://github.com/reliasdomi" target="_blank" rel="noopener" class="btn-ghost">
+                <a href="https://github.com/reliasdomi" target="_blank" rel="noopener" class="btn btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                     GitHub
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
             </div>
-        </div>
-        <div class="hero-scroll">
-            <span>Scroll</span>
-            <div class="scroll-line"></div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About -->
-    <section class="about" id="sobre-mi">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-number">01</div>
-                <h2 class="section-title">Sobre mí</h2>
-            </div>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p class="reveal">
-                        Soy Rubén Elías, ingeniero en irrigación egresado de la <strong>Universidad Autónoma Chapingo</strong>. Trabajo uniendo la ingeniería agronómica y el desarrollo de software: desde procesar levantamientos con estación total y GPS diferencial en nubes de puntos 3D navegables, hasta modelar balances hídricos y construir sistemas de campo que operan sin conexión.
-                    </p>
-                    <p class="reveal reveal-delay-1">
-                        Diseño y programo aplicaciones con <strong>Flutter</strong>, <strong>Python (FastAPI)</strong> y <strong>PostgreSQL / PostGIS</strong>, integrando sincronización local con <strong>PowerSync</strong> y análisis espacial con <strong>Leaflet</strong>, <strong>R</strong> y <strong>Potree</strong>. En la parte agronómica, implemento algoritmos de evapotranspiración de referencia y calendarios de riego con base en la metodología <strong>FAO-56</strong>.
-                    </p>
-                    <p class="reveal reveal-delay-2">
-                        Mi objetivo es construir tecnología con sentido práctico para el campo mexicano: software robusto, rápido y enfocado en resolver problemas reales de agua, suelo y gestión operativa.
-                    </p>
+        <!-- Interactive FAO-56 Simulation Engine -->
+        <section class="section-wrap" id="simulador">
+            <div class="section-header-compact">
+                <div>
+                    <div class="section-tag">// INTERACTIVE ENGINEERING</div>
+                    <h2 class="section-heading">Simulador de Demanda Hídrica</h2>
                 </div>
-                <div class="about-aside reveal reveal-delay-2">
-                    <div class="aside-block">
-                        <div class="aside-label">Formación</div>
-                        <div class="aside-value">
-                            Ingeniería en Irrigación<br>
-                            Universidad Autónoma Chapingo
+                <div style="font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted);">
+                    Motor FAO-56 Penman-Monteith en tiempo real
+                </div>
+            </div>
+
+            <div class="sim-grid">
+                <div class="sim-controls">
+                    <!-- Temp -->
+                    <div class="sim-control-group">
+                        <div class="sim-label-row">
+                            <span>Temperatura Media (T)</span>
+                            <span class="sim-value-pill" id="valTemp">25.0 °C</span>
+                        </div>
+                        <input type="range" class="sim-slider" id="sliderTemp" min="10" max="42" step="0.5" value="25">
+                    </div>
+
+                    <!-- Solar Radiation -->
+                    <div class="sim-control-group">
+                        <div class="sim-label-row">
+                            <span>Radiación Solar (Rs)</span>
+                            <span class="sim-value-pill" id="valRad">22.0 MJ/m²/d</span>
+                        </div>
+                        <input type="range" class="sim-slider" id="sliderRad" min="10" max="32" step="0.5" value="22">
+                    </div>
+
+                    <!-- RH -->
+                    <div class="sim-control-group">
+                        <div class="sim-label-row">
+                            <span>Humedad Relativa (HR)</span>
+                            <span class="sim-value-pill" id="valHr">45 %</span>
+                        </div>
+                        <input type="range" class="sim-slider" id="sliderHr" min="10" max="95" step="1" value="45">
+                    </div>
+
+                    <!-- Wind speed -->
+                    <div class="sim-control-group">
+                        <div class="sim-label-row">
+                            <span>Velocidad de Viento (u₂)</span>
+                            <span class="sim-value-pill" id="valWind">2.2 m/s</span>
+                        </div>
+                        <input type="range" class="sim-slider" id="sliderWind" min="0.5" max="6.0" step="0.1" value="2.2">
+                    </div>
+
+                    <!-- Crop selection -->
+                    <div class="sim-control-group">
+                        <div class="sim-label-row">
+                            <span>Coeficiente de Cultivo (Kc)</span>
+                            <span class="sim-value-pill" id="valKc">1.15 (Maíz en floración)</span>
+                        </div>
+                        <div class="crop-selector">
+                            <button class="crop-btn active" data-kc="1.15" data-name="Maíz (Floración)">Maíz (1.15)</button>
+                            <button class="crop-btn" data-kc="0.85" data-name="Aguacate (Desarrollo)">Aguacate (0.85)</button>
+                            <button class="crop-btn" data-kc="1.20" data-name="Alfalfa (Medio ciclo)">Alfalfa (1.20)</button>
+                            <button class="crop-btn" data-kc="1.05" data-name="Tomate (Fructificación)">Tomate (1.05)</button>
                         </div>
                     </div>
-                    <div class="aside-block">
-                        <div class="aside-label">Enfoque</div>
-                        <div class="aside-value">
-                            Modelación hídrica (FAO-56)<br>
-                            Geomática y topografía 3D<br>
-                            Software AgTech offline-first
+                </div>
+
+                <div class="sim-output-panel">
+                    <div class="fao-formula">
+                        ET₀ = [0.408Δ(Rn - G) + γ(900/(T+273))u₂(es - ea)] / [Δ + γ(1 + 0.34u₂)]
+                    </div>
+
+                    <div class="results-hero">
+                        <span class="result-caption">Evapotranspiración del Cultivo (ETc)</span>
+                        <div class="result-number">
+                            <span id="outEtc">5.74</span><span class="result-unit">mm / día</span>
                         </div>
                     </div>
-                    <div class="aside-block">
-                        <div class="aside-label">Tecnologías</div>
-                        <div class="tech-list">
-                            <span class="tech-tag">Python (FastAPI)</span>
-                            <span class="tech-tag">Flutter / Dart</span>
-                            <span class="tech-tag">FAO-56</span>
-                            <span class="tech-tag">PostgreSQL / PostGIS</span>
-                            <span class="tech-tag">PowerSync</span>
-                            <span class="tech-tag">Potree (3D)</span>
-                            <span class="tech-tag">Leaflet</span>
-                            <span class="tech-tag">R</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">GPS Diferencial</span>
+
+                    <div class="sub-metrics">
+                        <div class="sub-metric-item">
+                            <span class="sub-metric-label">ET₀ de Referencia</span>
+                            <span class="sub-metric-val" id="outEt0">4.99 mm/d</span>
+                        </div>
+                        <div class="sub-metric-item">
+                            <span class="sub-metric-label">Volumen / Hectárea</span>
+                            <span class="sub-metric-val" id="outVolume">57,400 L/ha</span>
+                        </div>
+                        <div class="sub-metric-item">
+                            <span class="sub-metric-label">Déficit Presión Vapor (VPD)</span>
+                            <span class="sub-metric-val" id="outVpd">1.74 kPa</span>
+                        </div>
+                        <div class="sub-metric-item">
+                            <span class="sub-metric-label">Lámina neta estimada</span>
+                            <span class="sub-metric-val" id="outNet">57.4 m³/ha</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Projects -->
-    <section class="projects" id="proyectos">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-number">02</div>
-                <h2 class="section-title">Proyectos</h2>
-            </div>
-
-            <!-- RanchUP -->
-            <div class="project-card reveal">
-                <div class="project-meta">
-                    <span class="project-number">I</span>
-                    <h3 class="project-name">RanchUP</h3>
-                    <span class="project-type">Plataforma AgTech offline-first</span>
-                </div>
-                <div class="project-body">
-                    <p>
-                        Sistema operativo de campo para gestión integral de ranchos agrícolas y ganaderos. Arquitectura offline-first en Flutter con base de datos SQLite local sincronizada vía PowerSync, backend en Supabase (PostgreSQL + RLS) y asistente especializado.
-                    </p>
-                    <div class="project-tags">
-                        <span class="project-tag">Flutter</span>
-                        <span class="project-tag">Dart</span>
-                        <span class="project-tag">PowerSync</span>
-                        <span class="project-tag">Supabase</span>
-                        <span class="project-tag">PostgreSQL</span>
-                        <span class="project-tag">FastAPI</span>
-                    </div>
-                    <span class="project-private">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                        Repositorio privado
-                    </span>
+        <!-- Projects Section -->
+        <section class="section-wrap" id="proyectos">
+            <div class="section-header-compact">
+                <div>
+                    <div class="section-tag">// SISTEMAS & CÓDIGO</div>
+                    <h2 class="section-heading">Proyectos Destacados</h2>
                 </div>
             </div>
 
-            <!-- riego-calc -->
-            <div class="project-card reveal">
-                <div class="project-meta">
-                    <span class="project-number">II</span>
-                    <h3 class="project-name">riego-calc</h3>
-                    <span class="project-type">Ingeniería de riego</span>
-                </div>
-                <div class="project-body">
-                    <p>
-                        Calculadora agronómica de evapotranspiración de referencia (ET₀) y necesidades hídricas para cultivos en México, implementando el modelo físico FAO-56 Penman-Monteith con parámetros climáticos y coeficientes de cultivo (Kc).
-                    </p>
-                    <div class="project-tags">
-                        <span class="project-tag">JavaScript</span>
-                        <span class="project-tag">FAO-56</span>
-                        <span class="project-tag">Penman-Monteith</span>
-                        <span class="project-tag">Evapotranspiración</span>
-                        <span class="project-tag">AgTech</span>
+            <div class="projects-grid">
+
+                <!-- RanchUP -->
+                <div class="project-card-engineered">
+                    <div class="project-top-row">
+                        <div>
+                            <span class="project-category">01 // PLATAFORMA AGTECH & OFFLINE-FIRST</span>
+                            <h3 class="project-title">RanchUP</h3>
+                        </div>
+                        <span class="arch-pill" style="color: var(--copper); border-color: rgba(224, 159, 90, 0.3);">Repo Privado</span>
                     </div>
-                    <div class="project-links">
-                        <a href="https://github.com/reliasdomi/riego-calc" target="_blank" rel="noopener" class="project-link">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            Ver en GitHub
+                    <p class="project-desc">
+                        Sistema operativo para ranchos agrícolas y ganaderos diseñado bajo arquitectura offline-first. Los operarios capturan bitácoras, inventarios y parcelas con 0ms de latencia en SQLite local. La reconciliación bidireccional ocurre automáticamente con Supabase mediante PowerSync al volver a tener cobertura, complementado con el asistente de campo Vega en FastAPI/LangGraph.
+                    </p>
+                    <div class="arch-pills">
+                        <span class="arch-pill">Flutter / Dart</span>
+                        <span class="arch-pill">PowerSync (SQLite local)</span>
+                        <span class="arch-pill">Supabase (PostgreSQL + RLS)</span>
+                        <span class="arch-pill">FastAPI & LangGraph</span>
+                        <span class="arch-pill">GIS Offline</span>
+                    </div>
+                    <div class="project-links-row">
+                        <span class="link-muted">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                            Flagship de campo · En producción
+                        </span>
+                    </div>
+                </div>
+
+                <!-- riego-calc -->
+                <div class="project-card-engineered">
+                    <div class="project-top-row">
+                        <div>
+                            <span class="project-category">02 // INGENIERÍA DE RIEGO COMPUTACIONAL</span>
+                            <h3 class="project-title">riego-calc</h3>
+                        </div>
+                        <span class="arch-pill" style="color: var(--accent-bright); border-color: rgba(16, 185, 129, 0.3);">Open Source</span>
+                    </div>
+                    <p class="project-desc">
+                        Motor de cálculo agronómico para requerimientos de agua en cultivos mexicanos. Implementa el modelo físico de balance de energía FAO-56 Penman-Monteith, psicrometría de altura, curvas de radiación extraterrestre y coeficientes de cultivo ajustados a condiciones climáticas locales.
+                    </p>
+                    <div class="arch-pills">
+                        <span class="arch-pill">JavaScript</span>
+                        <span class="arch-pill">FAO-56 Penman-Monteith</span>
+                        <span class="arch-pill">Evapotranspiración ($ET_0$)</span>
+                        <span class="arch-pill">Agrometeorología</span>
+                    </div>
+                    <div class="project-links-row">
+                        <a href="https://github.com/reliasdomi/riego-calc" target="_blank" rel="noopener" class="link-interactive">
+                            Ver código en GitHub
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
                         </a>
                     </div>
                 </div>
-            </div>
 
-            <!-- Topografía CARmorelia -->
-            <div class="project-card reveal">
-                <div class="project-meta">
-                    <span class="project-number">III</span>
-                    <h3 class="project-name">Topografía CARmorelia</h3>
-                    <span class="project-type">Geomática aplicada</span>
-                </div>
-                <div class="project-body">
-                    <p>
-                        Levantamiento topográfico del Centro de Atención a Ranchos Morelia. Incluye un mapa interactivo con árboles georreferenciados y una visualización de nube de puntos 3D del terreno, procesada a partir de datos de estación total y GPS diferencial.
-                    </p>
-                    <div class="project-tags">
-                        <span class="project-tag">Leaflet</span>
-                        <span class="project-tag">Potree</span>
-                        <span class="project-tag">R</span>
-                        <span class="project-tag">Nube de puntos 3D</span>
-                        <span class="project-tag">GPS diferencial</span>
+                <!-- CARmorelia -->
+                <div class="project-card-engineered">
+                    <div class="project-top-row">
+                        <div>
+                            <span class="project-category">03 // GEOMÁTICA 3D & LEVANTAMIENTOS</span>
+                            <h3 class="project-title">Topografía CARmorelia</h3>
+                        </div>
+                        <span class="arch-pill" style="color: var(--accent-bright); border-color: rgba(16, 185, 129, 0.3);">Demos Públicos</span>
                     </div>
-                    <div class="project-links">
-                        <a href="https://reliasdomi.github.io/CARmorelia-arboles-georreferenciados/" target="_blank" rel="noopener" class="project-link">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                            Mapa interactivo
-                        </a>
-                        <a href="https://reliasdomi.github.io/nube-puntos-CARmorelia/" target="_blank" rel="noopener" class="project-link">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    <p class="project-desc">
+                        Levantamiento topográfico de precisión procesado a partir de estación total y GPS diferencial. Incluye una visualización de nube de puntos 3D del relieve del terreno a 60 FPS mediante Potree y un mapa interactivo para inventario forestal con Leaflet y R.
+                    </p>
+                    <div class="arch-pills">
+                        <span class="arch-pill">Potree (Octree 3D)</span>
+                        <span class="arch-pill">Leaflet GIS</span>
+                        <span class="arch-pill">R / Spatial</span>
+                        <span class="arch-pill">GPS Diferencial</span>
+                        <span class="arch-pill">Estación Total</span>
+                    </div>
+                    <div class="project-links-row">
+                        <a href="https://reliasdomi.github.io/nube-puntos-CARmorelia/" target="_blank" rel="noopener" class="link-interactive">
                             Nube de puntos 3D
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                        <a href="https://reliasdomi.github.io/CARmorelia-arboles-georreferenciados/" target="_blank" rel="noopener" class="link-interactive" style="margin-left: 1rem;">
+                            Censo de árboles en Leaflet
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Contact -->
-    <section class="contact" id="contacto">
+            </div>
+        </section>
+
+        <!-- Engineering Principles -->
+        <section class="section-wrap">
+            <div class="section-header-compact">
+                <div>
+                    <div class="section-tag">// FILOSOFÍA DE DESARROLLO</div>
+                    <h2 class="section-heading">Principios de Ingeniería</h2>
+                </div>
+            </div>
+
+            <div class="principles-grid">
+                <div class="principle-box">
+                    <div class="principle-icon">⚡ // 01</div>
+                    <h3 class="principle-title">Offline-First por necesidad</h3>
+                    <p class="principle-text">
+                        En el campo mexicano la conectividad celular es la excepción, no la regla. Toda app de campo debe operar 100% desconectada con bases SQLite locales y resolver sincronización asíncrona al regresar a cobertura.
+                    </p>
+                </div>
+
+                <div class="principle-box">
+                    <div class="principle-icon">📐 // 02</div>
+                    <h3 class="principle-title">Física antes que heurísticas</h3>
+                    <p class="principle-text">
+                        Un error de 1 mm en la lámina de riego equivale a 10,000 litros desperdiciados por hectárea. Implementamos modelos termodinámicos completos (FAO-56, Penman-Monteith) y no aproximaciones simplistas.
+                    </p>
+                </div>
+
+                <div class="principle-box">
+                    <div class="principle-icon">🛰️ // 03</div>
+                    <h3 class="principle-title">Del GPS submétrico a la web</h3>
+                    <p class="principle-text">
+                        Los datos de levantamientos topográficos y sensores agrícolas no deben quedarse en archivos CAD estáticos. Los transformamos en experiencias web interactivas y navegables para los tomadores de decisión.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Matrix -->
+        <section class="section-wrap">
+            <div class="section-header-compact">
+                <div>
+                    <div class="section-tag">// STACK TÉCNICO</div>
+                    <h2 class="section-heading">Capacidades & Herramientas</h2>
+                </div>
+            </div>
+
+            <div class="stack-matrix">
+                <div class="stack-group">
+                    <div class="stack-group-title">Hidrología & Riego</div>
+                    <ul class="stack-items">
+                        <li class="stack-item">FAO-56 Penman-Monteith</li>
+                        <li class="stack-item">Balance hídrico de suelo</li>
+                        <li class="stack-item">Coeficientes de cultivo (Kc)</li>
+                        <li class="stack-item">Diseño agronómico de riego</li>
+                    </ul>
+                </div>
+
+                <div class="stack-group">
+                    <div class="stack-group-title">Geomática & 3D</div>
+                    <ul class="stack-items">
+                        <li class="stack-item">Potree (Octree 3D)</li>
+                        <li class="stack-item">Leaflet & Mapbox GL</li>
+                        <li class="stack-item">GPS Diferencial & Estación Total</li>
+                        <li class="stack-item">PostgreSQL / PostGIS</li>
+                    </ul>
+                </div>
+
+                <div class="stack-group">
+                    <div class="stack-group-title">Software & Backend</div>
+                    <ul class="stack-items">
+                        <li class="stack-item">Python (FastAPI, LangGraph)</li>
+                        <li class="stack-item">Flutter & Dart (Offline)</li>
+                        <li class="stack-item">PowerSync & SQLite</li>
+                        <li class="stack-item">R / JavaScript / TypeScript</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer / Contact -->
+    <footer id="contacto">
         <div class="container">
-            <h2 class="contact-heading reveal">
-                Hablemos de tu<br><em>próximo proyecto</em>
-            </h2>
-            <p class="contact-text reveal reveal-delay-1">
-                Si tienes un proyecto donde la tecnología y el software puedan mejorar procesos agrícolas, topográficos o de gestión hídrica, conversemos.
-            </p>
-            <div class="contact-links reveal reveal-delay-2">
-                <a href="https://github.com/reliasdomi" target="_blank" rel="noopener" class="contact-link">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
-                </a>
-                <a href="mailto:al24206161@chapingo.mx" class="contact-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
-                    Email
-                </a>
+            <div class="contact-box">
+                <h2 class="contact-title">
+                    Construyamos software con impacto en el <em>campo</em>.
+                </h2>
+                <p style="color: var(--text-dim); max-width: 500px; font-size: 1rem;">
+                    Disponible para consultoría, desarrollo de herramientas AgTech y proyectos de ingeniería hídrica o geomática.
+                </p>
+                <div class="contact-actions">
+                    <button class="btn btn-primary" id="copyEmailBtn" data-email="al24206161@chapingo.mx">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+                        Copiar Correo (Chapingo)
+                    </button>
+                    <a href="https://github.com/reliasdomi" target="_blank" rel="noopener" class="btn btn-secondary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub @reliasdomi
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>Rubén Elías · Universidad Autónoma Chapingo</span>
+                <span>México &middot; 2026</span>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        Rubén Elías &middot; 2026
     </footer>
 
+    <div class="toast" id="toast">¡Correo copiado al portapapeles!</div>
+
     <script>
-        // Intersection Observer for reveal animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Mobile nav toggle
-        const toggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-
-        toggle.addEventListener('click', () => {
-            toggle.classList.toggle('active');
-            navLinks.classList.toggle('open');
-        });
-
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                toggle.classList.remove('active');
-                navLinks.classList.remove('open');
-            });
-        });
-
-        // Nav hide on scroll down, show on scroll up
-        let lastScroll = 0;
-        const nav = document.getElementById('nav');
-
-        window.addEventListener('scroll', () => {
-            const current = window.scrollY;
-            if (current > lastScroll && current > 100) {
-                nav.classList.add('hidden');
-            } else {
-                nav.classList.remove('hidden');
+        // Live Time in Mexico City / Chapingo
+        function updateTime() {
+            try {
+                const now = new Date();
+                const timeString = new Intl.DateTimeFormat('es-MX', {
+                    timeZone: 'America/Mexico_City',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                }).format(now);
+                document.getElementById('liveTime').textContent = `${timeString} CDMX`;
+            } catch (e) {
+                document.getElementById('liveTime').textContent = `Chapingo, MX`;
             }
-            lastScroll = current;
-        }, { passive: true });
-    </script>
+        }
+        updateTime();
+        setInterval(updateTime, 30000);
 
+        // Copy Email Toast
+        const copyBtn = document.getElementById('copyEmailBtn');
+        const toast = document.getElementById('toast');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(copyBtn.getAttribute('data-email'));
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2500);
+            });
+        }
+
+        // FAO-56 Penman-Monteith Calculator Engine
+        let selectedKc = 1.15;
+
+        const sliderTemp = document.getElementById('sliderTemp');
+        const sliderRad = document.getElementById('sliderRad');
+        const sliderHr = document.getElementById('sliderHr');
+        const sliderWind = document.getElementById('sliderWind');
+
+        const valTemp = document.getElementById('valTemp');
+        const valRad = document.getElementById('valRad');
+        const valHr = document.getElementById('valHr');
+        const valWind = document.getElementById('valWind');
+        const valKc = document.getElementById('valKc');
+
+        const outEt0 = document.getElementById('outEt0');
+        const outEtc = document.getElementById('outEtc');
+        const outVolume = document.getElementById('outVolume');
+        const outVpd = document.getElementById('outVpd');
+        const outNet = document.getElementById('outNet');
+
+        function calculateFAO56() {
+            const T = parseFloat(sliderTemp.value);
+            const Rs = parseFloat(sliderRad.value);
+            const RH = parseFloat(sliderHr.value);
+            const u2 = parseFloat(sliderWind.value);
+
+            valTemp.textContent = `${T.toFixed(1)} °C`;
+            valRad.textContent = `${Rs.toFixed(1)} MJ/m²/d`;
+            valHr.textContent = `${RH} %`;
+            valWind.textContent = `${u2.toFixed(1)} m/s`;
+
+            // Atmospheric Pressure at ~2250m elevation (Chapingo/Valle de México avg)
+            const P = 77.5; // kPa
+            const gamma = 0.000665 * P; // Psychrometric constant ~ 0.0515 kPa/°C
+
+            // Saturation vapor pressure es (kPa)
+            const es = 0.6108 * Math.exp((17.27 * T) / (T + 237.3));
+            // Actual vapor pressure ea (kPa)
+            const ea = es * (RH / 100);
+            const vpd = es - ea;
+
+            // Slope of vapor pressure curve Delta (kPa/°C)
+            const Delta = (4098 * es) / Math.pow(T + 237.3, 2);
+
+            // Net radiation estimation Rn (MJ/m2/day) ~ 0.75 * Rs net
+            const Rn = 0.77 * Rs - 3.5;
+            const G = 0; // Soil heat flux for daily step ~ 0
+
+            // FAO-56 Penman-Monteith equation for ET0 (mm/day)
+            const numerator = (0.408 * Delta * (Rn - G)) + (gamma * (900 / (T + 273)) * u2 * vpd);
+            const denominator = Delta + (gamma * (1 + 0.34 * u2));
+            let et0 = numerator / denominator;
+            if (et0 < 0.5) et0 = 0.5;
+
+            const etc = et0 * selectedKc;
+            const litersHa = etc * 10000; // 1 mm = 10,000 L/ha
+
+            outEt0.textContent = `${et0.toFixed(2)} mm/d`;
+            outEtc.textContent = etc.toFixed(2);
+            outVolume.textContent = `${Math.round(litersHa).toLocaleString()} L/ha`;
+            outVpd.textContent = `${vpd.toFixed(2)} kPa`;
+            outNet.textContent = `${etc.toFixed(1)} m³/ha`;
+        }
+
+        [sliderTemp, sliderRad, sliderHr, sliderWind].forEach(el => {
+            el.addEventListener('input', calculateFAO56);
+        });
+
+        // Crop selector
+        document.querySelectorAll('.crop-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.crop-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedKc = parseFloat(btn.getAttribute('data-kc'));
+                valKc.textContent = `${selectedKc.toFixed(2)} (${btn.getAttribute('data-name')})`;
+                calculateFAO56();
+            });
+        });
+
+        calculateFAO56();
+    </script>
 </body>
 </html>
