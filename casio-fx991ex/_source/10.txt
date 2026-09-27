@@ -1,0 +1,14 @@
+{% raw %}// Touch layout fixes: keep arrow keys in their grid and retain the guide on tablets.
+const tabletStyle=document.createElement('style');
+tabletStyle.textContent='@media screen and (max-width:1180px){.dpad{grid-template-rows:repeat(2,36px)}.dpad .key{height:36px;min-height:36px;font-size:12px}.miniguide:not([hidden]){display:block}.workspace{padding-bottom:140px}}';
+document.head.appendChild(tabletStyle);
+$('print-cheat').onclick=()=>{showPage('cheat',false);window.print();};
+
+const miniGuide=document.createElement('div');miniGuide.id='mini-guide';miniGuide.className='miniguide';miniGuide.hidden=true;document.body.append(miniGuide);
+function renderMiniGuide(){const step=LESSONS[lessonIndex]?.steps[lessonPos];miniGuide.hidden=currentPage!=='sim'||!guided||!step;if(miniGuide.hidden)return;miniGuide.innerHTML=`<div class="eyebrow">Guía · paso ${lessonPos+1} / ${LESSONS[lessonIndex].steps.length}</div><div class="minirow"><div class="minititle">${esc(step.title)}</div><kbd class="minikey">${esc(keyLabel(step.key))}</kbd><button id="mini-step" class="btn small primary" aria-label="Ejecutar la tecla indicada">Hacer paso</button></div>`;$('mini-step').onclick=()=>pressKey(step.key,true);}
+
+renderTips();renderCheat();quizStart();initFlash();runLab();buildProb();runReg();startLesson(0);updateProgress();
+</script>
+</body>
+</html>
+{% endraw %}
