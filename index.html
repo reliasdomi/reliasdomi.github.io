@@ -3,31 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rubén Elías — Irrigación & Software</title>
-<meta name="description" content="Ingeniero en irrigación (UACh Chapingo). Software offline-first para el campo, balances hídricos FAO-56 y geomática 3D.">
-<meta property="og:title" content="Rubén Elías — Irrigación & Software">
-<meta property="og:description" content="Ingeniería en irrigación y software de campo.">
+<title>Rubén Elías Domínguez · Irrigación y software</title>
+<meta name="description" content="Rubén Elías Domínguez, ingeniería en irrigación (UACh Chapingo) y software de campo: apps offline-first, balances hídricos FAO-56 y geomática. Irapuato, Guanajuato.">
+<link rel="canonical" href="https://reliasdomi.com/">
+<meta name="facebook-domain-verification" content="ewkbqm7igt30v31rrxkhftr3qzgkql">
+<meta property="og:title" content="Rubén Elías Domínguez · Irrigación y software">
+<meta property="og:description" content="Ingeniería en irrigación y software para el campo mexicano.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://reliasdomi.github.io">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f7f5f0'/%3E%3Cpath d='M50 20c14 18 21 29 21 38a21 21 0 0 1-42 0c0-9 7-20 21-38z' fill='%234a5d3a'/%3E%3C/svg%3E">
+<meta property="og:url" content="https://reliasdomi.com/">
+<meta property="og:locale" content="es_MX">
+<meta name="theme-color" content="#f7f5f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12140f" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23f7f5f0'/%3E%3Cpath d='M50 20c14 18 21 29 21 38a21 21 0 0 1-42 0c0-9 7-20 21-38z' fill='%234a5d3a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Rubén Elías Domínguez",
+  "url": "https://reliasdomi.com/",
+  "email": "mailto:relias@reliasdomi.com",
+  "telephone": "+52 443 895 0964",
+  "jobTitle": "Ingeniería en irrigación y desarrollo de software",
+  "affiliation": {"@type": "CollegeOrUniversity", "name": "Universidad Autónoma Chapingo"},
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. de las Águilas 420 Int. 15, Col. San Miguelito",
+    "addressLocality": "Irapuato",
+    "addressRegion": "Guanajuato",
+    "postalCode": "36557",
+    "addressCountry": "MX"
+  },
+  "sameAs": ["https://github.com/reliasdomi"]
+}
+</script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
 :root{
   --paper:#f7f5f0;
+  --paper-2:#efece4;
   --ink:#14170f;
-  --dim:#6b6f60;
+  --dim:#5f6455;
   --rule:#ddd8cb;
-  --accent:#4a5d3a;
+  --accent:#3f5a2e;
   --serif:'Instrument Serif',Georgia,serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
   --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#12140f;
+    --paper-2:#1a1d16;
+    --ink:#ecebe4;
+    --dim:#a3a796;
+    --rule:#2c3026;
+    --accent:#9cc27f;
+    color-scheme:dark;
+  }
 }
 
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 body{
   background:var(--paper);
@@ -36,36 +76,41 @@ body{
   font-size:17px;
   line-height:1.65;
   -webkit-font-smoothing:antialiased;
-  padding:0 1.75rem;
+  padding:0 16px;
 }
 
 .wrap{max-width:44rem;margin:0 auto}
 
 a{color:inherit;text-decoration:none}
-a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-999px}
+.skip:focus{left:16px;top:12px;background:var(--ink);color:var(--paper);padding:.4rem .7rem;font-family:var(--mono);font-size:.75rem}
 
-/* ---- header ---- */
+/* header */
 header{
-  display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.5rem 1.5rem;
   padding:2.25rem 0;
   font-family:var(--mono);font-size:.78rem;letter-spacing:.02em;
 }
 header .name{font-weight:500}
-header .role{color:var(--dim)}
+header nav{display:flex;gap:1.25rem;color:var(--dim)}
+header nav a:hover{color:var(--accent)}
 
-/* ---- hero ---- */
-.hero{padding:5rem 0 6rem}
+/* hero */
+.hero{padding:4.5rem 0 5.5rem}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:1.25rem}
 h1{
   font-family:var(--serif);font-weight:400;
-  font-size:clamp(2.6rem,8vw,4.4rem);
+  font-size:clamp(2.5rem,9vw,4.4rem);
   line-height:1.02;letter-spacing:-.015em;
   margin-bottom:1.75rem;
+  text-wrap:balance;
 }
 .hero p{max-width:34rem;color:var(--dim)}
 .hero p em{font-family:var(--serif);font-style:italic;font-size:1.1em;color:var(--ink)}
 
-/* ---- sections ---- */
-section{padding:0 0 5.5rem}
+/* sections */
+section{padding:0 0 5rem;scroll-margin-top:1.5rem}
 .label{
   font-family:var(--mono);font-size:.72rem;font-weight:400;
   text-transform:uppercase;letter-spacing:.16em;color:var(--dim);
@@ -73,71 +118,86 @@ section{padding:0 0 5.5rem}
   margin-bottom:2.5rem;
 }
 
-/* ---- work ---- */
+/* work */
 .work{list-style:none}
 .work li{
-  display:grid;grid-template-columns:2.5rem 1fr;gap:.5rem;
+  display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:.5rem;
   padding:1.75rem 0;border-bottom:1px solid var(--rule);
 }
 .work li:first-child{padding-top:0}
 .num{font-family:var(--mono);font-size:.72rem;color:var(--dim);padding-top:.45rem}
-h3{
-  font-family:var(--serif);font-weight:400;font-size:1.7rem;
-  line-height:1.2;margin-bottom:.4rem;
-}
+h3{font-family:var(--serif);font-weight:400;font-size:1.7rem;line-height:1.2;margin-bottom:.4rem}
 h3 .tag{
   font-family:var(--mono);font-size:.66rem;text-transform:uppercase;
-  letter-spacing:.1em;color:var(--dim);vertical-align:middle;margin-left:.65rem;
+  letter-spacing:.1em;color:var(--dim);vertical-align:middle;margin-left:.65rem;white-space:nowrap;
 }
 .work p{color:var(--dim);font-size:.95rem;max-width:32rem}
-.stack{
-  font-family:var(--mono);font-size:.72rem;color:var(--dim);
-  margin-top:.85rem;line-height:1.8;
-}
-.links{margin-top:.9rem;display:flex;flex-wrap:wrap;gap:1.25rem}
+.stack{font-family:var(--mono);font-size:.72rem;margin-top:.85rem;line-height:1.8}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.25rem}
+.shots img{width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:6px;background:var(--paper-2)}
+.links{margin-top:.9rem;display:flex;flex-wrap:wrap;gap:.5rem 1.25rem}
 .links a{
   font-family:var(--mono);font-size:.75rem;color:var(--accent);
   border-bottom:1px solid var(--rule);padding-bottom:2px;
 }
 .links a:hover{border-bottom-color:var(--accent)}
 
-/* ---- focus ---- */
+/* focus */
 .focus{list-style:none;display:grid;gap:2rem}
-.focus h4{font-family:var(--serif);font-weight:400;font-size:1.25rem;margin-bottom:.25rem}
+.focus h4{font-family:var(--serif);font-weight:400;font-size:1.3rem;margin-bottom:.25rem}
 .focus p{color:var(--dim);font-size:.95rem;max-width:32rem}
 
-/* ---- contact ---- */
-.contact a.mail{
-  font-family:var(--serif);font-size:clamp(1.6rem,5vw,2.4rem);
-  border-bottom:1px solid var(--rule);
+/* contact */
+.mails{display:grid;gap:.35rem;justify-items:start}
+.mails a{
+  font-family:var(--serif);font-size:clamp(1.45rem,5.5vw,2.3rem);line-height:1.25;
+  border-bottom:1px solid var(--rule);overflow-wrap:anywhere;
 }
-.contact a.mail:hover{border-bottom-color:var(--accent);color:var(--accent)}
-.contact .links{margin-top:2rem}
+.mails a:hover{border-bottom-color:var(--accent);color:var(--accent)}
+.contact .links{margin-top:1.75rem}
+
+.legal{
+  margin-top:3rem;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:.5rem 1.5rem;
+  font-size:.9rem;
+}
+.legal dt{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);padding-top:.2rem}
+.legal dd{overflow-wrap:anywhere}
 
 footer{
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem 1rem;
   padding:2rem 0 3.5rem;border-top:1px solid var(--rule);
   font-family:var(--mono);font-size:.72rem;color:var(--dim);
 }
+footer a{border-bottom:1px solid var(--rule)}
+footer a:hover{color:var(--accent)}
 
 @media (max-width:520px){
-  .work li{grid-template-columns:1fr}
+  .hero{padding:2.5rem 0 4rem}
+  .work li{grid-template-columns:minmax(0,1fr)}
   .num{padding-top:0}
+  .legal{grid-template-columns:minmax(0,1fr);gap:.1rem}
+  .legal dd{margin-bottom:.75rem}
 }
 </style>
 </head>
 <body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
 <div class="wrap">
 
 <header>
-  <span class="name">Rubén Elías</span>
-  <span class="role">Irrigación · Software</span>
+  <span class="name">Rubén Elías Domínguez</span>
+  <nav aria-label="Secciones">
+    <a href="#trabajo">Trabajo</a>
+    <a href="#enfoque">Enfoque</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
 </header>
 
-<main>
+<main id="contenido">
   <section class="hero">
-    <h1>Ingeniería en irrigación<br>y software de campo.</h1>
-    <p>Universidad Autónoma Chapingo, Depto. de Irrigación. Escribo la física del agua —<em>FAO-56</em>— y las aplicaciones que la llevan a parcelas sin señal.</p>
+    <p class="eyebrow">Irrigación · Software · Irapuato, Gto.</p>
+    <h1>Ingeniería en irrigación y software de campo.</h1>
+    <p>Estudio en el Departamento de Irrigación de la Universidad Autónoma Chapingo. Programo la física del agua (<em>FAO-56</em>) y las aplicaciones que la llevan a parcelas sin señal.</p>
   </section>
 
   <section id="trabajo">
@@ -147,15 +207,19 @@ footer{
         <span class="num">01</span>
         <div>
           <h3>RanchUP <span class="tag">en producción</span></h3>
-          <p>Sistema operativo para ranchos agrícolas y ganaderos. Bitácoras, inventarios y parcelas se capturan en SQLite local sin latencia; la sincronización con el servidor ocurre sola al volver la cobertura.</p>
+          <p>Sistema para ranchos agrícolas y ganaderos. Bitácoras, inventarios y parcelas se capturan en el teléfono sin conexión, y se sincronizan solas cuando vuelve la cobertura.</p>
           <p class="stack">Flutter · PowerSync · Supabase · FastAPI · GIS offline</p>
+          <div class="shots">
+            <img src="assets/ranchup-jornada.png" alt="Pantalla de RanchUP con la jornada del día" loading="lazy">
+            <img src="assets/ranchup-modulos.png" alt="Pantalla de RanchUP con los módulos del rancho" loading="lazy">
+          </div>
         </div>
       </li>
       <li>
         <span class="num">02</span>
         <div>
-          <h3>riego-calc <span class="tag">open source</span></h3>
-          <p>Motor de cálculo para requerimiento hídrico de cultivos mexicanos: balance de energía Penman-Monteith, psicrometría de altura y coeficientes de cultivo locales.</p>
+          <h3>riego-calc <span class="tag">código abierto</span></h3>
+          <p>Calcula cuánta agua necesita un cultivo en México: Penman-Monteith, psicrometría corregida por altura y coeficientes de cultivo locales.</p>
           <p class="stack">JavaScript · FAO-56 · Agrometeorología</p>
           <p class="links"><a href="https://github.com/reliasdomi/riego-calc">Código →</a></p>
         </div>
@@ -164,12 +228,20 @@ footer{
         <span class="num">03</span>
         <div>
           <h3>Topografía CARmorelia <span class="tag">demo</span></h3>
-          <p>Levantamiento con estación total y GPS diferencial convertido en web navegable: nube de puntos 3D del relieve e inventario forestal georreferenciado.</p>
+          <p>Levantamiento con estación total y GPS diferencial publicado como web: nube de puntos 3D del relieve e inventario forestal georreferenciado.</p>
           <p class="stack">Potree · Leaflet · R · GPS diferencial</p>
           <p class="links">
             <a href="https://reliasdomi.github.io/nube-puntos-CARmorelia/">Nube de puntos →</a>
             <a href="https://reliasdomi.github.io/CARmorelia-arboles-georreferenciados/">Censo de árboles →</a>
           </p>
+        </div>
+      </li>
+      <li>
+        <span class="num">04</span>
+        <div>
+          <h3>FX Lab <span class="tag">tutorial</span></h3>
+          <p>Guía de estadística con la calculadora Casio fx-991EX, pensada para usarse en iPad durante clase.</p>
+          <p class="links"><a href="casio-fx991ex/">Abrir →</a></p>
         </div>
       </li>
     </ol>
@@ -179,31 +251,44 @@ footer{
     <h2 class="label">Cómo trabajo</h2>
     <ul class="focus">
       <li>
-        <h4>Offline-first por necesidad</h4>
-        <p>En el campo mexicano la cobertura es la excepción. La app tiene que funcionar completa y desconectada, y reconciliar después.</p>
+        <h4>Sin señal, la app sigue funcionando</h4>
+        <p>En el campo mexicano la cobertura es la excepción. Todo se captura desconectado y se concilia después.</p>
       </li>
       <li>
-        <h4>Física antes que heurísticas</h4>
-        <p>1 mm de error en la lámina son 10,000 litros por hectárea. Modelo termodinámico completo, no aproximaciones.</p>
+        <h4>Primero la física</h4>
+        <p>1 mm de error en la lámina son 10,000 litros por hectárea. Uso el modelo completo, no atajos.</p>
       </li>
       <li>
         <h4>Del levantamiento a la web</h4>
-        <p>Los datos de campo no se quedan en archivos CAD: terminan en mapas y visores que alguien puede abrir y decidir.</p>
+        <p>Los datos de campo terminan en mapas y visores que cualquiera puede abrir para decidir, no en archivos CAD.</p>
       </li>
     </ul>
   </section>
 
   <section id="contacto" class="contact">
     <h2 class="label">Contacto</h2>
-    <a class="mail" href="mailto:relias@reliasdomi.com">relias@reliasdomi.com</a>
-    <a class="mail" href="mailto:al24206161@chapingo.mx">al24206161@chapingo.mx</a>
-    <p class="links"><a href="https://github.com/reliasdomi">GitHub @reliasdomi →</a></p>
+    <div class="mails">
+      <a href="mailto:relias@reliasdomi.com">relias@reliasdomi.com</a>
+      <a href="tel:+524438950964">+52 443 895 0964</a>
+    </div>
+    <p class="links">
+      <a href="https://github.com/reliasdomi">GitHub @reliasdomi →</a>
+      <a href="mailto:al24206161@chapingo.mx">Correo Chapingo →</a>
+    </p>
+
+    <dl class="legal">
+      <dt>Nombre</dt><dd>RUBEN ELIAS DOMINGUEZ</dd>
+      <dt>RFC</dt><dd>EIDR060813SX0</dd>
+      <dt>Domicilio</dt><dd>AV DE LAS AGUILAS 420 INT 15, COL. SAN MIGUELITO, IRAPUATO, GUANAJUATO, C.P. 36557, MÉXICO</dd>
+      <dt>Teléfono</dt><dd>+52 443 895 0964</dd>
+      <dt>Correo</dt><dd>relias@reliasdomi.com</dd>
+    </dl>
   </section>
 </main>
 
 <footer>
-  <span>Rubén Elías Domínguez · Irapuato, Gto. · Chapingo, México</span>
-  <span><a href="privacidad.html">Aviso de privacidad</a> · 2026</span>
+  <span>© 2026 Rubén Elías Domínguez · Irapuato, Gto., México</span>
+  <span><a href="privacidad.html">Aviso de privacidad</a></span>
 </footer>
 
 </div>
